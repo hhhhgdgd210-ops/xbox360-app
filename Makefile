@@ -5,6 +5,7 @@ endif
 include $(DEVKITXENON)/rules
 
 TARGET   := app
+DEPSDIR  := .
 SOURCES  := main.c
 OBJS     := $(SOURCES:.c=.o)
 
