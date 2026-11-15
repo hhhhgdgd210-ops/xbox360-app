@@ -21,7 +21,7 @@ jobs:
 
       - name: Cache do toolchain
         id: cache-xenon
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: /usr/local/xenon
           key: xenon-toolchain-v1
@@ -36,6 +36,13 @@ jobs:
           export PATH=$PATH:$DEVKITXENON/bin:$DEVKITXENON/usr/bin
           ./build-xenon-toolchain libxenon
           ./build-xenon-toolchain libs
+
+      - name: Salvar cache do toolchain
+        if: steps.cache-xenon.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: /usr/local/xenon
+          key: xenon-toolchain-v1
 
       - name: Compilar o app
         run: |
