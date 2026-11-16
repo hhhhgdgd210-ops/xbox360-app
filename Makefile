@@ -9,8 +9,9 @@ DEPSDIR  := .
 SOURCES  := main.c
 OBJS     := $(SOURCES:.c=.o)
 
-CFLAGS   += -O2 -Wall -I$(DEVKITXENON)/usr/include
-LDFLAGS  += -L$(DEVKITXENON)/usr/lib
+MACHDEP  = -DXENON -m32 -mno-altivec -fno-pic -mpowerpc64 -mhard-float
+CFLAGS   = -O2 -Wall $(MACHDEP) -I$(DEVKITXENON)/usr/include
+LDFLAGS  = $(MACHDEP) -L$(DEVKITXENON)/xenon/lib/32 -L$(DEVKITXENON)/usr/lib
 LIBS     := -lxenon -lm
 
 all: $(TARGET).elf32
